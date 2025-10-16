@@ -1,0 +1,30 @@
+# Bytecode e artefatos Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg-info/
+build/
+dist/
+
+# Ambientes virtuais locais
+.venv/
+env/
+venv/
+
+# Configurações de IDE/editor
+.vscode/
+.idea/
+*.code-workspace
+
+# Notebooks Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Arquivos de ambiente e logs
+.env
+.env.*
+*.log
+
+# Dados derivados
+data_processed/
