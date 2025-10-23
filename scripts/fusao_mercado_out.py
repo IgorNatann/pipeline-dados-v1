@@ -25,7 +25,7 @@ def leitura_dados(path, tipo_arquivo):
     return dados
 
 def get_columns(dados):
-    return list(dados[0].keys())
+    return list(dados[-1].keys())
 
 def rename_columns(dados, key_mapping):
     new_dados_csv = []
@@ -77,7 +77,7 @@ dados_csv = rename_columns(dados_csv, key_mapping)
 nome_colunas_csv = get_columns(dados_csv)
 print(f"Colunas transformadas: {nome_colunas_csv}")
 
-dados_fusao = join(dados_csv, dados_json)
+dados_fusao = join(dados_json, dados_csv)
 nome_colunas_fusao = get_columns(dados_fusao)
 size_dados_fusao = size_data(dados_fusao)
 print(f"Nome das colunas: {nome_colunas_fusao} , Size dos dados: {size_dados_fusao}")
