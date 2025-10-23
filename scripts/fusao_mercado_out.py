@@ -46,20 +46,37 @@ def join(dadosA, dadosB):
     combined_list.extend(dadosB)
     return combined_list
 
-path_json = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaA.json'
+def transformando_dados_tabela(dados, nomes_colunas):
+    dados_combinados_tabela = [nomes_colunas]
 
+    for row in dados:
+        linha = []
+        for coluna in nomes_colunas:
+            linha.append(row.get(coluna, 'Indisponivel'))
+        dados_combinados_tabela.append(linha)
+
+    return dados_combinados_tabela
+
+def salvados_dados(dados, path):
+    with open(path, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(dados)
+
+path_json = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaA.json'
 path_csv = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaB.csv'
 
 # Iniciando a leitura
 dados_json = leitura_dados(path_json, 'json')
 nome_colunas_json = get_columns(dados_json)
 tamanho_dados_json = size_data(dados_json)
+
 print(f"Nome colunas dados Json: {nome_colunas_json}")
 print(f"Tamanhado dos dados Json: {tamanho_dados_json}")
 
 dados_csv = leitura_dados(path_csv, 'csv')
 nome_colunas_csv = get_columns(dados_csv)
 tamanho_dados_csv = size_data(dados_csv)
+
 print(f"Nome colunas dados Csv: {nome_colunas_csv}")
 print(f"Tamanhado dos dados Csv: {tamanho_dados_csv}")
 
@@ -72,7 +89,6 @@ key_mapping = {'Nome do Item': 'Nome do Produto',
               }
 
 # Transformação dos dados
-
 dados_csv = rename_columns(dados_csv, key_mapping)
 nome_colunas_csv = get_columns(dados_csv)
 print(f"Colunas transformadas: {nome_colunas_csv}")
@@ -83,3 +99,9 @@ size_dados_fusao = size_data(dados_fusao)
 print(f"Nome das colunas: {nome_colunas_fusao} , Size dos dados: {size_dados_fusao}")
 
 # Salvando os dados
+dados_fusao_tabela = transformando_dados_tabela(dados_fusao, nome_colunas_fusao)
+path_dados_combinados = 'pipeline_dados/data_processed/dados_combinados_final.csv'
+
+salvados_dados(dados_fusao_tabela, path_dados_combinados)
+
+print(path_dados_combinados)
