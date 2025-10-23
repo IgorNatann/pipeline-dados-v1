@@ -37,6 +37,15 @@ def rename_columns(dados, key_mapping):
         new_dados_csv.append(dict_temp)
     return new_dados_csv
 
+def size_data(dados):
+    return len(dados)
+
+def join(dadosA, dadosB):
+    combined_list = []
+    combined_list.extend(dadosA)
+    combined_list.extend(dadosB)
+    return combined_list
+
 path_json = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaA.json'
 
 path_csv = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaB.csv'
@@ -44,11 +53,15 @@ path_csv = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empres
 # Iniciando a leitura
 dados_json = leitura_dados(path_json, 'json')
 nome_colunas_json = get_columns(dados_json)
+tamanho_dados_json = size_data(dados_json)
 print(f"Nome colunas dados Json: {nome_colunas_json}")
+print(f"Tamanhado dos dados Json: {tamanho_dados_json}")
 
 dados_csv = leitura_dados(path_csv, 'csv')
 nome_colunas_csv = get_columns(dados_csv)
+tamanho_dados_csv = size_data(dados_csv)
 print(f"Nome colunas dados Csv: {nome_colunas_csv}")
+print(f"Tamanhado dos dados Csv: {tamanho_dados_csv}")
 
 key_mapping = {'Nome do Item': 'Nome do Produto',
                'Classificação do Produto': 'Categoria do Produto',
@@ -63,3 +76,8 @@ key_mapping = {'Nome do Item': 'Nome do Produto',
 dados_csv = rename_columns(dados_csv, key_mapping)
 nome_colunas_csv = get_columns(dados_csv)
 print(f"Colunas transformadas: {nome_colunas_csv}")
+
+dados_fusao = join(dados_json, dados_csv)
+nome_colunas_fusao = get_columns(dados_fusao)
+size_dados_fusao = size_data(dados_fusao)
+print(f"Nome das colunas: {nome_colunas_fusao} , Size dos dados: {size_dados_fusao}")
