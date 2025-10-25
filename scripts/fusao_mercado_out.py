@@ -39,14 +39,14 @@ from processamento_dados import Dados
 #         new_dados_csv.append(dict_temp)
 #     return new_dados_csv
 
-def size_data(dados):
-    return len(dados)
+# def size_data(dados):
+#     return len(dados)
 
-def join(dadosA, dadosB):
-    combined_list = []
-    combined_list.extend(dadosA)
-    combined_list.extend(dadosB)
-    return combined_list
+# def join(dadosA, dadosB):
+#     combined_list = []
+#     combined_list.extend(dadosA)
+#     combined_list.extend(dadosB)
+#     return combined_list
 
 def transformando_dados_tabela(dados, nomes_colunas):
     dados_combinados_tabela = [nomes_colunas]
@@ -78,6 +78,8 @@ print(f"Arquivo: {dados_empresa_B.path}, Tipo de estrutura: {dados_empresa_B.tip
 print(dados_empresa_A.dados[0])
 print(dados_empresa_B.dados[0])
 print(dados_empresa_A.nome_colunas, dados_empresa_B.nome_colunas)
+print(dados_empresa_A.qtd_linhas)
+print(dados_empresa_B.qtd_linhas)
 
 # Transform
 
@@ -92,6 +94,9 @@ key_mapping = {'Nome do Item': 'Nome do Produto',
 dados_empresa_B.rename_columns(key_mapping)
 print(f"Validação new name columns: {dados_empresa_B.nome_colunas}")
 
+dados_fusao = Dados.join(dados_empresa_A, dados_empresa_A)
+print(dados_fusao.nome_colunas)
+print(dados_fusao.qtd_linhas)
 # # Iniciando a leitura
 # dados_json = leitura_dados(path_json, 'json')
 # nome_colunas_json = get_columns(dados_json)
