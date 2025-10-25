@@ -26,18 +26,18 @@ from processamento_dados import Dados
 #         dados = leitura_json(path)
 #     return dados
 
-def get_columns(dados):
-    return list(dados[-1].keys())
+# def get_columns(dados):
+#     return list(dados[-1].keys())
 
-def rename_columns(dados, key_mapping):
-    new_dados_csv = []
+# def rename_columns(dados, key_mapping):
+#     new_dados_csv = []
 
-    for old_dict in dados:
-        dict_temp = {}
-        for old_key, value in old_dict.items():
-            dict_temp[key_mapping[old_key]] = value
-        new_dados_csv.append(dict_temp)
-    return new_dados_csv
+#     for old_dict in dados:
+#         dict_temp = {}
+#         for old_key, value in old_dict.items():
+#             dict_temp[key_mapping[old_key]] = value
+#         new_dados_csv.append(dict_temp)
+#     return new_dados_csv
 
 def size_data(dados):
     return len(dados)
@@ -71,11 +71,26 @@ path_csv = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empres
 
 dados_empresa_A = Dados(path_json, 'json')
 print(f"Arquivo: {dados_empresa_A.path}, Tipo de estrutura: {dados_empresa_A.tipo_dados}")
-print(dados_empresa_A.dados)
 
 dados_empresa_B = Dados(path_csv, 'csv')
 print(f"Arquivo: {dados_empresa_B.path}, Tipo de estrutura: {dados_empresa_B.tipo_dados}")
-print(dados_empresa_B.dados)
+
+print(dados_empresa_A.dados[0])
+print(dados_empresa_B.dados[0])
+print(dados_empresa_A.nome_colunas, dados_empresa_B.nome_colunas)
+
+# Transform
+
+key_mapping = {'Nome do Item': 'Nome do Produto',
+               'Classificação do Produto': 'Categoria do Produto',
+               'Valor em Reais (R$)': 'Preço do Produto',
+               'Quantidade em Estoque': 'Quantidade em Estoque',
+               'Nome da Loja': 'Filial',
+                'Data da Venda': 'Data da Venda'
+              }
+
+dados_empresa_B.rename_columns(key_mapping)
+print(f"Validação new name columns: {dados_empresa_B.nome_colunas}")
 
 # # Iniciando a leitura
 # dados_json = leitura_dados(path_json, 'json')
