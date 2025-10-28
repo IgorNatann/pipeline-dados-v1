@@ -94,7 +94,7 @@ key_mapping = {'Nome do Item': 'Nome do Produto',
 dados_empresa_B.rename_columns(key_mapping)
 print(f"Validação new name columns: {dados_empresa_B.nome_colunas}")
 
-dados_fusao = Dados.join(dados_empresa_A, dados_empresa_A)
+dados_fusao = Dados.join(dados_empresa_A, dados_empresa_B)
 print(dados_fusao.nome_colunas)
 print(dados_fusao.qtd_linhas)
 # # Iniciando a leitura
