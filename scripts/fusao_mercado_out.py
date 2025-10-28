@@ -48,21 +48,21 @@ from processamento_dados import Dados
 #     combined_list.extend(dadosB)
 #     return combined_list
 
-def transformando_dados_tabela(dados, nomes_colunas):
-    dados_combinados_tabela = [nomes_colunas]
+# def transformando_dados_tabela(dados, nomes_colunas):
+#     dados_combinados_tabela = [nomes_colunas]
 
-    for row in dados:
-        linha = []
-        for coluna in nomes_colunas:
-            linha.append(row.get(coluna, 'Indisponivel'))
-        dados_combinados_tabela.append(linha)
+#     for row in dados:
+#         linha = []
+#         for coluna in nomes_colunas:
+#             linha.append(row.get(coluna, 'Indisponivel'))
+#         dados_combinados_tabela.append(linha)
 
-    return dados_combinados_tabela
+#     return dados_combinados_tabela
 
-def salvados_dados(dados, path):
-    with open(path, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(dados)
+# def salvados_dados(dados, path):
+#     with open(path, 'w', newline='') as file:
+#         writer = csv.writer(file)
+#         writer.writerows(dados)
 
 path_json = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaA.json'
 path_csv = '/home/pipeline-dados/Documentos/pipeline_dados/data_raw/dados_empresaB.csv'
@@ -97,6 +97,12 @@ print(f"Validação new name columns: {dados_empresa_B.nome_colunas}")
 dados_fusao = Dados.join(dados_empresa_A, dados_empresa_B)
 print(dados_fusao.nome_colunas)
 print(dados_fusao.qtd_linhas)
+
+# Load
+path_dados_combinados = '/home/pipeline-dados/Documentos/pipeline_dados/data_processed/dados_combinados_final_v1.csv'
+dados_fusao.salvados_dados(path_dados_combinados)
+print(path_dados_combinados)
+
 # # Iniciando a leitura
 # dados_json = leitura_dados(path_json, 'json')
 # nome_colunas_json = get_columns(dados_json)

@@ -61,3 +61,23 @@ class Dados:
         
 
         return Dados(combined_list, 'list')
+    
+    def transformando_dados_tabela(self):
+
+        dados_combinados_tabela = [self.nome_colunas]
+
+        for row in self.dados:
+            linha = []
+            for coluna in self.nome_colunas:
+                linha.append(row.get(coluna, 'Indisponivel'))
+            dados_combinados_tabela.append(linha)
+
+        return dados_combinados_tabela
+    
+    def salvados_dados(self, path):
+
+        dados_combinados_tabela = self.transformando_dados_tabela()
+
+        with open(path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(dados_combinados_tabela)
